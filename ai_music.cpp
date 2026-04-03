@@ -1,0 +1,96 @@
+#include "ai_music.h"
+#include "ui_ai_music.h"
+#include<QMouseEvent>
+#include<QGraphicsDropShadowEffect>
+#include<QDebug>
+AI_Music::AI_Music(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::AI_Music)
+{
+    ui->setupUi(this);
+    initUi();
+    connectSignalAndSlot();
+    //默认启动“本地下载”的跳动字符 + 页面
+    //这个动作必须在connectSignalAndSlot建立信号与槽的连接之后
+    ui->local->setActivePage();
+
+
+}
+
+AI_Music::~AI_Music()
+{
+    delete ui;
+}
+
+void AI_Music::initUi()
+{
+    this->setWindowFlag(Qt::FramelessWindowHint);
+
+    //设置窗口属性 -- 透明
+    this->setAttribute(Qt::WA_TranslucentBackground);
+
+    //设置阴影效果
+    QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect(this);
+    shadowEffect->setOffset(0,0);
+    shadowEffect->setColor("#000000");
+    shadowEffect->setBlurRadius(10);
+    this->setGraphicsEffect(shadowEffect);
+
+    //设置btform的图片和文本
+    ui->Rec->setIconAndText(":/images/rec.png","推荐",0);
+    ui->audio->setIconAndText(":/images/radio.png","电台",1);
+    ui->music->setIconAndText(":/images/music.png","音乐馆",2);
+    ui->like->setIconAndText(":/images/like.png","我喜欢",3);
+    ui->local->setIconAndText(":/images/local.png","本地下载",4);
+    ui->recent->setIconAndText(":/images/recent.png","最佳播放",5);
+}
+
+void AI_Music::connectSignalAndSlot()
+{
+    connect(ui->Rec,&BtForm::btClick,this,&AI_Music::onBtFormClick);
+    connect(ui->audio,&BtForm::btClick,this,&AI_Music::onBtFormClick);
+    connect(ui->music,&BtForm::btClick,this,&AI_Music::onBtFormClick);
+    connect(ui->like,&BtForm::btClick,this,&AI_Music::onBtFormClick);
+    connect(ui->local,&BtForm::btClick,this,&AI_Music::onBtFormClick);
+    connect(ui->recent,&BtForm::btClick,this,&AI_Music::onBtFormClick);
+}
+
+void AI_Music::onBtFormClick(int id)
+{
+    //恢复其他界面的样式
+    QList<BtForm*> buttonList = this->findChildren<BtForm*>(); //获取到所有BtForm类型的按键对象
+    for(auto btitem : buttonList)
+    {
+        if(id != btitem->getId())
+        {
+            btitem->clearBackGroundAndAnimal();
+        }
+    }
+    //切换界面
+    ui->stackedWidget->setCurrentIndex(id);
+}
+
+
+void AI_Music::on_quit_clicked()
+{
+    close();
+}
+
+void AI_Music::mousePressEvent(QMouseEvent *event)
+{
+    if(Qt::LeftButton == event->button()){
+        dragPosition = event->globalPos() - geometry().topLeft();
+        return;
+    }
+    //这个的意思是，我重写了左键按下的响应，对于其他响应，我不做处理，交给父类来完成。我不抹除父类的实现。
+    QWidget::mousePressEvent(event);
+}
+
+void AI_Music::mouseMoveEvent(QMouseEvent *event)
+{
+    if(Qt::LeftButton == event->buttons()){
+        move(event->globalPos() - dragPosition);
+        return;
+    }
+    QWidget::mouseMoveEvent(event);
+}
