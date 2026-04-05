@@ -13,6 +13,9 @@ class RecBoxItem : public QWidget
 
 public:
     explicit RecBoxItem(QWidget *parent = nullptr);
+    bool eventFilter(QObject *watched, QEvent *event);
+    void setText(QString text);
+    void setImage(QString imagePath);
     ~RecBoxItem();
 
 private:

@@ -18,6 +18,7 @@ public:
     void initUi();
     void connectSignalAndSlot();
     void onBtFormClick(int id);
+    QJsonArray RandomPicture();
 
 private slots:
     void on_quit_clicked();

@@ -14,12 +14,27 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>6</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
    <item>
     <widget class="QWidget" name="musicImageBox" native="true">
      <property name="minimumSize">
       <size>
-       <width>132</width>
-       <height>132</height>
+       <width>150</width>
+       <height>150</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -37,8 +52,20 @@
         <height>150</height>
        </rect>
       </property>
+      <property name="minimumSize">
+       <size>
+        <width>150</width>
+        <height>150</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>150</height>
+       </size>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 0)</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -47,11 +74,23 @@
      <widget class="QPushButton" name="recMusicBtn">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>50</y>
-        <width>93</width>
-        <height>28</height>
+        <x>0</x>
+        <y>0</y>
+        <width>150</width>
+        <height>150</height>
        </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>150</width>
+        <height>150</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>150</height>
+       </size>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
